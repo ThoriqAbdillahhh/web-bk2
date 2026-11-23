@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] { display: none !important; }
+
+/* Ganti warna fokus input (bawaan plugin forms berwarna biru) */
+@layer components {
+    [type='text']:focus,
+    [type='email']:focus,
+    [type='password']:focus,
+    [type='number']:focus,
+    [type='search']:focus,
+    [type='date']:focus,
+    textarea:focus,
+    select:focus {
+        --tw-ring-color: theme('colors.brand.500');
+        border-color: theme('colors.brand.500');
+    }
+}
