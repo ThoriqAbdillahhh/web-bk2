@@ -11,6 +11,8 @@ class ConsultationController extends Controller
 {
     public function index(Request $request)
     {
+        abort_unless($request->user()->hasRole('guru'), 403);
+
         $filter = $request->query('status');
 
         $consultations = Consultation::with('user.classroom')
@@ -24,6 +26,8 @@ class ConsultationController extends Controller
 
     public function update(Request $request, Consultation $consultation)
     {
+        abort_unless($request->user()->hasRole('guru'), 403);
+
         $data = $request->validate([
             'status' => ['required', Rule::in(Consultation::STATUSES)],
         ]);

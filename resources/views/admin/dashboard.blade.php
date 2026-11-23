@@ -1,61 +1,54 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h2 class="font-bold text-2xl text-stone-900 leading-tight">
-                    {{ __('Dashboard Admin') }}
-                </h2>
-                <p class="text-sm text-stone-500 mt-1">Ringkasan data sistem Pribadi ID.</p>
+                <h1 class="text-2xl font-bold leading-tight text-stone-900">Dashboard Admin</h1>
+                <p class="mt-1 text-sm text-stone-600">Ringkasan Learning Adventure dan pengelolaan prototipe.</p>
             </div>
-            <div class="text-sm font-medium text-stone-600 bg-white px-4 py-2 rounded-lg border border-stone-200 shadow-sm">
-                {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
+            <div class="rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm font-medium text-stone-700">
+                {{ now()->translatedFormat('l, d F Y') }}
             </div>
         </div>
     </x-slot>
 
-    <div class="max-w-6xl mx-auto space-y-6 mt-2">
-        {{-- Hero Card --}}
-        <div class="bg-white border border-stone-200 rounded-2xl shadow-sm overflow-hidden relative min-h-[140px] flex items-center">
-            <div class="absolute -right-4 -top-4 w-56 h-56 opacity-80 pointer-events-none hidden sm:block">
-                <x-leaf-decoration class="w-full h-full" />
-            </div>
-            <div class="p-6 sm:p-8 relative z-10">
-                <h3 class="text-xl font-bold text-stone-900">Pusat Kendali Admin</h3>
-                <p class="text-sm text-stone-600 mt-1 max-w-md">Kelola akun pengguna, data kelas, dan pantau aktivitas sistem dari sini.</p>
-            </div>
-        </div>
+    <div class="mx-auto max-w-6xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
+        @if (session('success'))
+            <div class="rounded-xl border border-brand-300 bg-brand-50 p-4 text-sm text-stone-800" role="status">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="rounded-xl border border-rose-300 bg-rose-50 p-4 text-sm text-rose-950" role="alert">{{ session('error') }}</div>
+        @endif
 
-        {{-- Statistik --}}
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            <div class="bg-white border border-stone-200 p-5 rounded-2xl shadow-sm flex items-center gap-4">
-                <div class="p-3 bg-[#e0f5f0] text-[#2b8577] rounded-xl shrink-0">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-stone-500">Total Siswa</p>
-                    <p class="text-2xl font-bold text-stone-900 mt-0.5">124</p>
-                </div>
-            </div>
+        <section class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
+            <p class="text-sm font-semibold text-brand-800">Pusat Kendali</p>
+            <h2 class="mt-1 text-xl font-bold text-stone-900">Kelola prototipe Learning Adventure</h2>
+            <p class="mt-2 max-w-2xl text-sm leading-6 text-stone-600">Atur akun, kelas, isi misi, tantangan dan checklist uji fungsi. Aplikasi ini merupakan pendamping belajar, bukan alat diagnosis atau penilaian akademik.</p>
+        </section>
 
-            <div class="bg-white border border-stone-200 p-5 rounded-2xl shadow-sm flex items-center gap-4">
-                <div class="p-3 bg-[#f5f3ff] text-[#6d28d9] rounded-xl shrink-0">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        <section aria-label="Ringkasan data" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach ([
+                ['label' => 'Jumlah siswa', 'value' => $totalSiswa],
+                ['label' => 'Jumlah guru BK', 'value' => $totalGuru],
+                ['label' => 'Jumlah kelas', 'value' => $totalKelas],
+                ['label' => 'Jumlah misi', 'value' => $totalMisi],
+                ['label' => 'Jumlah tantangan', 'value' => $totalTantangan],
+                ['label' => 'Checklist belum diperiksa', 'value' => $checksPending],
+            ] as $stat)
+                <div class="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+                    <p class="text-sm font-medium text-stone-600">{{ $stat['label'] }}</p>
+                    <p class="mt-1 text-3xl font-bold text-stone-900">{{ $stat['value'] }}</p>
                 </div>
-                <div>
-                    <p class="text-sm font-medium text-stone-500">Total Guru BK</p>
-                    <p class="text-2xl font-bold text-stone-900 mt-0.5">8</p>
-                </div>
-            </div>
+            @endforeach
+        </section>
 
-            <div class="bg-white border border-stone-200 p-5 rounded-2xl shadow-sm flex items-center gap-4">
-                <div class="p-3 bg-[#ffedd5] text-[#c2410c] rounded-xl shrink-0">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-stone-500">Total Kelas</p>
-                    <p class="text-2xl font-bold text-stone-900 mt-0.5">12</p>
-                </div>
+        <section class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+            <h2 class="text-lg font-bold text-stone-900">Pengelolaan</h2>
+            <div class="mt-4 flex flex-wrap gap-3">
+                <a href="{{ route('admin.users.index') }}" class="rounded-xl border border-stone-300 px-4 py-2.5 text-sm font-semibold text-stone-800 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2">Kelola akun</a>
+                <a href="{{ route('admin.classrooms.index') }}" class="rounded-xl border border-stone-300 px-4 py-2.5 text-sm font-semibold text-stone-800 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2">Kelola kelas</a>
+                <a href="{{ route('admin.missions.index') }}" class="rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-800 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2">Kelola misi dan tantangan</a>
+                <a href="{{ route('admin.checks.index') }}" class="rounded-xl border border-stone-300 px-4 py-2.5 text-sm font-semibold text-stone-800 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2">Checklist uji fungsi</a>
             </div>
-        </div>
+        </section>
     </div>
 </x-app-layout>

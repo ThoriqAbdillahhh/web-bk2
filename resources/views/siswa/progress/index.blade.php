@@ -1,108 +1,113 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h2 class="font-bold text-2xl text-stone-900 leading-tight">
-                    {{ __('Ringkasan Perkembangan') }}
-                </h2>
+                <h1 class="text-2xl font-bold leading-tight text-stone-900">Catatan kemajuan</h1>
+                <p class="mt-1 text-sm text-stone-600">Perjalananmu sendiri, bukan penilaian atau peringkat.</p>
             </div>
-            {{-- Tombol Cetak (Otomatis hilang saat di-print berkat class print:hidden di layout) --}}
-            <button onclick="window.print()" class="inline-flex items-center gap-2 bg-[#2b8577] hover:bg-[#246c62] text-white font-semibold px-4 py-2.5 rounded-lg transition-colors shadow-sm text-sm print:hidden">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                Cetak / Simpan PDF
-            </button>
+            <div class="flex flex-wrap gap-2 print:hidden">
+                <a href="{{ route('siswa.dashboard') }}" class="inline-flex items-center justify-center rounded-xl border border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-stone-700 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2">
+                    Beranda
+                </a>
+                <button type="button" onclick="window.print()" class="inline-flex items-center justify-center rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-800 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2">
+                    Cetak / Simpan PDF
+                </button>
+            </div>
         </div>
     </x-slot>
 
-    <div class="max-w-5xl mx-auto mt-2 space-y-4 print:mt-0">
-        
-        {{-- Baris 1: Kartu Nama --}}
-        <div class="bg-[#f3e8ff] rounded-2xl p-6 sm:p-8 flex flex-col justify-center border border-purple-100">
-            <h3 class="text-xl font-bold text-stone-900">{{ Auth::user()->name ?? 'siswabaru' }}</h3>
-            <p class="text-stone-700 mt-1">Kelas X-2</p> {{-- Nanti bisa diganti $student->classroom->name --}}
-        </div>
+    <div class="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 lg:px-8 print:max-w-none print:px-0 print:py-0">
+        <section class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm print:shadow-none" aria-label="Informasi siswa">
+            <h2 class="text-lg font-bold text-stone-900">{{ $user->nickname ?: $user->name }}</h2>
+            <p class="mt-1 text-sm text-stone-600">Kelas: {{ $user->classroom?->name ?? 'Belum terdaftar' }}</p>
+            <p class="mt-3 text-sm text-stone-700">{{ $completedCount }} dari {{ $totalMissions }} misi selesai.</p>
+            <p class="mt-1 text-sm text-stone-600">Tidak ada skor, peringkat, atau perbandingan dengan siswa lain.</p>
+        </section>
 
-        {{-- Baris 2: Kekuatan & Minat --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {{-- Kekuatan --}}
-            <div class="bg-[#ffedd5] rounded-2xl p-6 border border-orange-100">
-                <h4 class="font-bold text-stone-800 mb-2">Kekuatan</h4>
-                <ul class="list-disc list-inside text-stone-800 space-y-1 text-sm">
-                    <li>aku pro bikin website</li>
-                </ul>
-            </div>
-            {{-- Minat --}}
-            <div class="bg-[#ecfccb] rounded-2xl p-6 border border-lime-200">
-                <h4 class="font-bold text-stone-800 mb-2">Minat</h4>
-                <ul class="list-disc list-inside text-stone-800 space-y-1 text-sm">
-                    <li>aku juga suka gambar</li>
-                </ul>
-            </div>
-        </div>
-
-        {{-- Baris 3: Nilai Hidup & Peta Kepribadian --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {{-- Nilai Hidup --}}
-            <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm flex items-center gap-4">
-                <div class="p-3 bg-[#f0fdfa] text-[#0f766e] rounded-xl shrink-0">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                </div>
-                <div>
-                    <p class="text-xs font-medium text-stone-500">Nilai yang kuanggap penting</p>
-                    <p class="text-base font-bold text-stone-900 mt-0.5">Keluarga</p>
-                </div>
-            </div>
-
-            {{-- Peta Kepribadian --}}
-            <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-sm flex items-center justify-between gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="p-3 bg-[#f5f3ff] text-[#6d28d9] rounded-xl shrink-0">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                    </div>
+        @forelse ($missionItems as $item)
+            <article class="break-inside-avoid rounded-2xl border border-stone-200 bg-white p-6 shadow-sm print:shadow-none" aria-labelledby="progress-mission-{{ $item['mission']->id }}">
+                <div class="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                        <p class="text-xs font-medium text-stone-500">Peta Kepribadian</p>
-                        <p class="text-base font-bold text-stone-900 mt-0.5">Sudah diisi</p>
+                        <p class="text-sm font-semibold text-brand-800">Misi {{ $item['mission']->sequence }}</p>
+                        <h2 id="progress-mission-{{ $item['mission']->id }}" class="mt-1 text-lg font-bold text-stone-900">{{ $item['mission']->title }}</h2>
+                        <p class="mt-2 text-sm leading-6 text-stone-600">{{ $item['mission']->description }}</p>
                     </div>
+                    <x-status-badge :status="$item['status']" />
                 </div>
-                <a href="{{ route('siswa.personality.index') ?? '#' }}" class="text-xs font-bold bg-[#2b8577] hover:bg-[#246c62] text-white px-3 py-2 rounded-lg transition-colors">Buka link</a>
-            </div>
-        </div>
 
-        {{-- Baris 4: Perjalanan Mingguan (Jurnal) --}}
-        <div class="bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-sm">
-            <h3 class="text-xl font-bold text-stone-900">Perjalanan dari Minggu ke Minggu</h3>
-            <p class="text-sm text-stone-600 mt-1 mb-6">1 jurnal tertulis. Ini catatan perkembanganmu, bukan penilaian.</p>
+                @if ($item['started_at'])
+                    <p class="mt-3 text-sm text-stone-600">Dimulai: {{ $item['started_at']->translatedFormat('d F Y, H:i') }}</p>
+                @endif
+                @if ($item['completed_at'])
+                    <p class="mt-1 text-sm text-stone-600">Selesai: {{ $item['completed_at']->translatedFormat('d F Y, H:i') }}</p>
+                @endif
 
-            <div class="space-y-6 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-stone-200 before:to-transparent">
-                
-                {{-- Item Timeline 1 --}}
-                <div class="relative flex items-start gap-4">
-                    {{-- Dot --}}
-                    <div class="flex items-center justify-center w-5 h-5 rounded-full bg-stone-200 z-10 shrink-0 mt-1">
-                        <div class="w-2 h-2 rounded-full bg-stone-500"></div>
-                    </div>
-                    {{-- Konten --}}
-                    <div>
-                        <h4 class="font-bold text-stone-900">Minggu ke-1</h4>
-                        <ul class="mt-2 space-y-3">
-                            <li class="text-sm text-stone-700">
-                                <span class="block font-semibold">Yang kupelajari tentang diriku</span>
-                                <span class="text-stone-500">saya mendapat ilmu komputer baru</span>
-                            </li>
-                            <li class="text-sm text-stone-700">
-                                <span class="block font-semibold">Langkah berikutnya</span>
-                                <span class="text-stone-500">saya mau tidur</span>
-                            </li>
-                            <li class="text-sm text-stone-700">
-                                <span class="block font-semibold">Umpan balik guru BK</span>
-                                <span class="text-stone-500">jos</span>
-                            </li>
+                @if ($item['challenges']->isNotEmpty())
+                    <div class="mt-5 border-t border-stone-100 pt-4">
+                        <h3 class="font-semibold text-stone-800">Tantangan yang dicoba</h3>
+                        <ul class="mt-3 space-y-3">
+                            @foreach ($item['challenges'] as $challengeItem)
+                                <li class="rounded-xl border border-stone-200 p-4">
+                                    <div class="flex flex-wrap items-center justify-between gap-3">
+                                        <p class="font-medium text-stone-800">
+                                            Tingkat {{ $challengeItem['challenge']->level }}: {{ $challengeItem['challenge']->title }}
+                                        </p>
+                                        <x-status-badge :status="$challengeItem['completed'] ? 'completed' : ($challengeItem['attempts'] ? 'in_progress' : 'locked')" />
+                                    </div>
+                                    <p class="mt-1 text-sm text-stone-600">
+                                        {{ $challengeItem['attempts'] }} kali dicoba
+                                    </p>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
-                </div>
+                @endif
 
-            </div>
-        </div>
+                @if ($item['reflections']->isNotEmpty())
+                    <div class="mt-5 border-t border-stone-100 pt-4">
+                        <h3 class="font-semibold text-stone-800">Refleksimu</h3>
+                        <div class="mt-3 space-y-4">
+                            @foreach ($item['reflections'] as $reflection)
+                                <section class="rounded-xl border border-stone-200 p-4">
+                                    <p class="text-sm text-stone-600">
+                                        {{ $reflection->created_at->translatedFormat('d F Y, H:i') }}
+                                        ·
+                                        {{ $reflection->is_shared ? 'Dibagikan kepada guru BK' : 'Privat' }}
+                                    </p>
+                                    <dl class="mt-3 space-y-3 text-sm leading-6">
+                                        <div>
+                                            <dt class="font-semibold text-stone-800">Yang kupelajari</dt>
+                                            <dd class="whitespace-pre-line text-stone-700">{{ $reflection->what_learned }}</dd>
+                                        </div>
+                                        <div>
+                                            <dt class="font-semibold text-stone-800">Bagian yang terasa sulit</dt>
+                                            <dd class="whitespace-pre-line text-stone-700">{{ $reflection->difficult_part }}</dd>
+                                        </div>
+                                        <div>
+                                            <dt class="font-semibold text-stone-800">Langkah berikutnya</dt>
+                                            <dd class="whitespace-pre-line text-stone-700">{{ $reflection->next_step }}</dd>
+                                        </div>
+                                    </dl>
 
+                                    @if ($reflection->feedback->isNotEmpty())
+                                        <div class="mt-4 border-t border-stone-100 pt-3">
+                                            <h4 class="text-sm font-semibold text-stone-800">Umpan balik guru BK</h4>
+                                            @foreach ($reflection->feedback as $feedback)
+                                                <p class="mt-2 whitespace-pre-line text-sm leading-6 text-stone-700">{{ $feedback->content }}</p>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </section>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            </article>
+        @empty
+            <section class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+                <h2 class="font-bold text-stone-900">Belum ada catatan kemajuan</h2>
+                <p class="mt-2 text-sm leading-6 text-stone-600">Saat kamu mencoba misi, catatan prosesnya akan tampil di sini.</p>
+            </section>
+        @endforelse
     </div>
 </x-app-layout>

@@ -12,6 +12,8 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorizeAdmin();
+
         $filter = $request->query('role');
         $roles = in_array($filter, ['siswa', 'guru']) ? [$filter] : ['siswa', 'guru'];
 
@@ -26,6 +28,8 @@ class UserController extends Controller
 
     public function create()
     {
+        $this->authorizeAdmin();
+
         return view('admin.users.form', [
             'user' => new User,
             'classrooms' => Classroom::orderBy('name')->get(),
@@ -34,6 +38,8 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorizeAdmin();
+
         $data = $request->validate([
             'name'         => ['required', 'string', 'max:255'],
             'nickname'     => ['nullable', 'string', 'max:50'],
@@ -57,6 +63,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorizeAdmin();
         $this->guardAdmin($user);
 
         return view('admin.users.form', [
@@ -67,6 +74,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        $this->authorizeAdmin();
         $this->guardAdmin($user);
 
         $data = $request->validate([
@@ -100,6 +108,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $this->authorizeAdmin();
         $this->guardAdmin($user);
         $user->delete();
 
@@ -110,5 +119,10 @@ class UserController extends Controller
     private function guardAdmin(User $user): void
     {
         abort_if($user->hasRole('admin'), 403);
+    }
+
+    private function authorizeAdmin(): void
+    {
+        abort_unless(auth()->check() && auth()->user()->hasRole('admin'), 403);
     }
 }

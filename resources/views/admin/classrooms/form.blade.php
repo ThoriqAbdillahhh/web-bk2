@@ -15,12 +15,12 @@
             <div>
                 <label for="name" class="block text-sm font-semibold text-stone-700 mb-1">Nama Kelas (mis. X-1)</label>
                 <input id="name" name="name" value="{{ old('name', $classroom->name) }}" required
-                       class="w-full rounded-xl border-stone-200 bg-stone-50 shadow-sm focus:border-[#2b8577] focus:ring-[#2b8577] text-sm">
+                       class="w-full rounded-xl border-stone-200 bg-stone-50 shadow-sm focus:border-brand-700 focus:ring-brand-700 text-sm">
                 @error('name') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
             </div>
 
             <div class="mt-6 pt-4 flex items-center gap-4 border-t border-stone-100">
-                <button type="submit" class="bg-[#2b8577] hover:bg-[#246c62] text-white font-semibold px-6 py-2.5 rounded-lg transition-colors shadow-sm text-sm">
+                <button type="submit" class="bg-brand-700 hover:bg-brand-800 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors shadow-sm text-sm">
                     Simpan
                 </button>
                 <a href="{{ route('admin.classrooms.index') }}" class="text-sm font-medium text-stone-500 hover:text-stone-800 transition-colors">Batal</a>
