@@ -42,7 +42,7 @@
                 </div>
 
                 <p class="mt-4 max-w-3xl text-sm leading-6 text-stone-700">{{ $reflection->what_learned }}</p>
-                <a href="{{ route('guru.reflections.show', $reflection) }}" class="mt-3 inline-flex text-sm font-medium text-brand-800 underline decoration-brand-300 underline-offset-4 transition hover:text-brand-950 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2">
+                <a href="{{ route('guru.reflections.show', $reflection) }}" class="mt-3 inline-flex text-sm font-medium text-brand-800 underline decoration-brand-300 underline-offset-4 transition hover:text-brand-900 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2">
                     Baca dan beri tanggapan
                 </a>
             </article>

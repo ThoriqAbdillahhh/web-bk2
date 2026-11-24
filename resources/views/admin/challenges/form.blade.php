@@ -34,7 +34,7 @@
                 </div>
                 <div>
                     <label for="challenge_type" class="mb-2 block text-sm font-semibold text-stone-800">Jenis tantangan</label>
-                    <select id="challenge_type" name="challenge_type" required x-on:change="$dispatch('challenge-type-change', $event.target.value)" @disabled($optionsLocked) class="block w-full rounded-xl border-stone-300 bg-white text-stone-900 shadow-sm focus:border-brand-700 focus:ring-brand-700">
+                    <select id="challenge_type" name="challenge_type" required x-data x-on:change="$dispatch('challenge-type-change', $event.target.value)" @disabled($optionsLocked) class="block w-full rounded-xl border-stone-300 bg-white text-stone-900 shadow-sm focus:border-brand-700 focus:ring-brand-700">
                         <option value="choice" @selected(old('challenge_type', $challenge->challenge_type ?: 'choice') === 'choice')>Pilih strategi</option>
                         <option value="ordering" @selected(old('challenge_type', $challenge->challenge_type) === 'ordering')>Susun urutan</option>
                     </select>

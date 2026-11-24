@@ -74,15 +74,15 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->name('siswa.')->grou
     Route::get('konsultasi', [Siswa\ConsultationController::class, 'index'])->name('consultations.index');
     Route::post('konsultasi', [Siswa\ConsultationController::class, 'store'])->name('consultations.store');
 
-    Route::get('profil', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::match(['PUT', 'PATCH'], 'profil', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('profil', [Siswa\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::match(['PUT', 'PATCH'], 'profil', [Siswa\ProfileController::class, 'update'])->name('profile.update');
+    
 });
+
 
 // Ganti password saja
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::match(['PUT', 'PATCH'], '/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+}); 
 
 require __DIR__.'/auth.php';
