@@ -19,7 +19,7 @@ use LogicException;
 
 class DemoSeeder extends Seeder
 {
-    private const DEMO_PASSWORD = 'LearningAdventureDemo!2026';
+    private const DEMO_PASSWORD = 'learning';
 
     public function run(): void
     {
