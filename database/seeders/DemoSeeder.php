@@ -83,10 +83,6 @@ class DemoSeeder extends Seeder
             ],
         );
 
-        $students->get('VII-1')->consultations()->firstOrCreate([
-            'topic' => 'DUMMY: Saya ingin mencoba membuat tujuan belajar yang realistis.',
-        ]);
-
         Observation::updateOrCreate(
             [
                 'observer_id' => $teacher->id,

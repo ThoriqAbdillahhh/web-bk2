@@ -53,8 +53,6 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
 
     Route::get('angket', [Guru\SurveyRecapController::class, 'index'])->name('survey.index');
 
-    
-    Route::patch('konsultasi/{consultation}', [Guru\ConsultationController::class, 'update'])->name('consultations.update');
 });
 
 /* SISWA */
@@ -73,12 +71,6 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->name('siswa.')->grou
     Route::get('angket', [Siswa\SurveyController::class, 'show'])->name('survey.show');
     Route::post('angket', [Siswa\SurveyController::class, 'store'])->name('survey.store');
 
-    
-    Route::post('konsultasi', [Siswa\ConsultationController::class, 'store'])->name('consultations.store');
-
-    
-    Route::match(['PUT', 'PATCH'], 'profil', [Siswa\ProfileController::class, 'update'])->name('profile.update');
-    
 });
 
 

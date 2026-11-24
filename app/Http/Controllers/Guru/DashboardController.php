@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
-use App\Models\Consultation;
 use App\Models\Reflection;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -18,9 +17,6 @@ class DashboardController extends Controller
             'sharedReflectionsToReview' => Reflection::query()
                 ->where('is_shared', true)
                 ->whereDoesntHave('feedback')
-                ->count(),
-            'pendingConsultations' => Consultation::query()
-                ->where('status', 'menunggu')
                 ->count(),
         ]);
     }

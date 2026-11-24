@@ -15,19 +15,12 @@
             <p class="mt-2 max-w-3xl text-sm leading-6 text-stone-600">Learning Adventure adalah prototipe pendamping belajar, bukan alat diagnosis atau penilaian akademik. Gunakan catatan untuk mendukung langkah siswa, bukan membandingkan mereka.</p>
         </section>
 
-        <section class="grid gap-5 sm:grid-cols-2" aria-label="Ringkasan tindak lanjut">
+        <section aria-label="Ringkasan tindak lanjut">
             <article class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
                 <p class="text-sm font-semibold text-stone-600">Refleksi yang dibagikan dan belum mendapat umpan balik</p>
                 <p class="mt-2 text-3xl font-bold text-stone-900">{{ $sharedReflectionsToReview }}</p>
                 <a href="{{ route('guru.reflections.index') }}" class="mt-4 inline-flex items-center text-sm font-semibold text-brand-800 underline hover:text-brand-900">
                     Buka refleksi yang dibagikan
-                </a>
-            </article>
-            <article class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-                <p class="text-sm font-semibold text-stone-600">Permintaan konsultasi menunggu</p>
-                <p class="mt-2 text-3xl font-bold text-stone-900">{{ $pendingConsultations }}</p>
-                <a href="{{ route('guru.consultations.index', ['status' => 'menunggu']) }}" class="mt-4 inline-flex items-center text-sm font-semibold text-brand-800 underline hover:text-brand-900">
-                    Tinjau konsultasi
                 </a>
             </article>
         </section>

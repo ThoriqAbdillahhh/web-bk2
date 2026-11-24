@@ -58,11 +58,6 @@ class User extends Authenticatable
         return $this->belongsTo(Classroom::class);
     }
 
-    public function consultations(): HasMany
-    {
-        return $this->hasMany(Consultation::class);
-    }
-
     public function missionProgress(): HasMany
     {
         return $this->hasMany(MissionProgress::class);

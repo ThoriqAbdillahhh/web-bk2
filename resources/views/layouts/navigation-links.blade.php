@@ -21,7 +21,6 @@
                 ['Progres per kelas', 'guru.progress.index', 'guru.progress.*', 'progress'],
                 ['Observasi', 'guru.observations.index', 'guru.observations.*', 'observe'],
                 ['Rekap angket', 'guru.survey.index', 'guru.survey.*', 'survey'],
-                ['Konsultasi', 'guru.consultations.index', 'guru.consultations.*', 'chat'],
             ]],
         ];
     } elseif ($user->hasRole('siswa')) {
@@ -32,8 +31,6 @@
                 ['Peta petualangan', 'siswa.missions.map', 'siswa.missions.*', 'map'],
                 ['Ringkasan', 'siswa.progress.index', 'siswa.progress.*', 'progress'],
                 ['Angket respons', 'siswa.survey.show', 'siswa.survey.*', 'survey'],
-                ['Konsultasi', 'siswa.consultations.index', 'siswa.consultations.*', 'chat'],
-                ['Profil', 'siswa.profile.edit', 'siswa.profile.*', 'people'],
             ]],
         ];
     }
