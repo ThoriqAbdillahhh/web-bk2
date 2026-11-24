@@ -36,17 +36,18 @@ class DemoSeeder extends Seeder
             $name => Classroom::firstOrCreate(['name' => $name]),
         ]);
 
-        $admin = $this->makeUser('DUMMY Admin', 'admin@dummy.test', 'admin');
-        $teacher = $this->makeUser('DUMMY Guru BK', 'guru@dummy.test', 'guru');
+        $admin = $this->makeUser('DUMMY Admin', 'admin@dummy.test', 'admin', 'Admin');
+        $teacher = $this->makeUser('DUMMY Guru BK', 'guru@dummy.test', 'guru', 'Guru BK');
         $students = collect([
-            'VII-1' => ['name' => 'DUMMY Siswa VII-1', 'email' => 'siswa.vii@dummy.test'],
-            'VIII-1' => ['name' => 'DUMMY Siswa VIII-1', 'email' => 'siswa.viii@dummy.test'],
-            'IX-1' => ['name' => 'DUMMY Siswa IX-1', 'email' => 'siswa.ix@dummy.test'],
+            'VII-1' => ['name' => 'DUMMY Siswa VII-1', 'email' => 'siswa.vii@dummy.test', 'nickname' => 'Siswa A'],
+            'VIII-1' => ['name' => 'DUMMY Siswa VIII-1', 'email' => 'siswa.viii@dummy.test', 'nickname' => 'Siswa B'],
+            'IX-1' => ['name' => 'DUMMY Siswa IX-1', 'email' => 'siswa.ix@dummy.test', 'nickname' => 'Siswa C'],
         ])->mapWithKeys(fn (array $data, string $className): array => [
             $className => $this->makeUser(
                 $data['name'],
                 $data['email'],
                 'siswa',
+                $data['nickname'],
                 $classrooms->get($className),
             ),
         ]);
@@ -119,13 +120,14 @@ class DemoSeeder extends Seeder
         string $name,
         string $email,
         string $role,
+        ?string $nickname = null,
         ?Classroom $classroom = null,
     ): User {
         $user = User::updateOrCreate(
             ['email' => $email],
             [
                 'name' => $name,
-                'nickname' => $name,
+                'nickname' => $nickname,
                 'password' => self::DEMO_PASSWORD,
                 'classroom_id' => $classroom?->id,
             ],

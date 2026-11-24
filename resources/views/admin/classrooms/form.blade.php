@@ -13,7 +13,7 @@
             @if ($classroom->exists) @method('PUT') @endif
 
             <div>
-                <label for="name" class="block text-sm font-semibold text-stone-700 mb-1">Nama Kelas (mis. X-1)</label>
+                <label for="name" class="block text-sm font-semibold text-stone-700 mb-1">Nama Kelas (mis. VII-1)</label>
                 <input id="name" name="name" value="{{ old('name', $classroom->name) }}" required
                        class="w-full rounded-xl border-stone-200 bg-stone-50 shadow-sm focus:border-brand-700 focus:ring-brand-700 text-sm">
                 @error('name') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror

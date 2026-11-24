@@ -42,7 +42,7 @@ class UserController extends Controller
 
         $data = $request->validate([
             'name'         => ['required', 'string', 'max:255'],
-            'nickname'     => ['nullable', 'string', 'max:50'],
+            'nickname'     => ['required_if:role,siswa', 'nullable', 'string', 'max:50'],
             'email'        => ['required', 'email', 'max:255', 'unique:users,email'],
             'password'     => ['required', 'string', 'min:8'],
             'role'         => ['required', Rule::in(['siswa', 'guru'])],
@@ -79,7 +79,7 @@ class UserController extends Controller
 
         $data = $request->validate([
             'name'         => ['required', 'string', 'max:255'],
-            'nickname'     => ['nullable', 'string', 'max:50'],
+            'nickname'     => ['required_if:role,siswa', 'nullable', 'string', 'max:50'],
             'email'        => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
             'password'     => ['nullable', 'string', 'min:8'],
             'role'         => ['required', Rule::in(['siswa', 'guru'])],

@@ -48,6 +48,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function getDisplayNameAttribute(): string
+    {
+        return $this->nickname ?: ($this->hasRole('guru') ? 'Guru BK' : 'Siswa');
+    }
+
     public function classroom(): BelongsTo
     {
         return $this->belongsTo(Classroom::class);

@@ -18,7 +18,7 @@
         @endif
 
         <section class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-            <h2 class="text-lg font-bold text-stone-900">{{ $reflection->user->nickname ?: $reflection->user->name }}</h2>
+            <h2 class="text-lg font-bold text-stone-900">{{ $reflection->user->display_name }}</h2>
             <p class="mt-1 text-sm text-stone-600">{{ $reflection->user->classroom?->name ?? 'Kelas belum terdaftar' }}</p>
             <p class="mt-3 rounded-xl border border-brand-200 bg-brand-50 p-3 text-sm text-stone-800">Siswa memilih untuk membagikan refleksi ini kepada guru BK.</p>
             <dl class="mt-5 space-y-5">
@@ -44,7 +44,7 @@
                     @foreach ($reflection->feedback as $feedback)
                         <li class="rounded-xl border border-stone-200 p-4">
                             <p class="whitespace-pre-line leading-6 text-stone-700">{{ $feedback->content }}</p>
-                            <p class="mt-2 text-sm text-stone-600">{{ $feedback->teacher?->nickname ?: $feedback->teacher?->name ?: 'Guru BK' }} · {{ $feedback->created_at->translatedFormat('d F Y, H:i') }}</p>
+                            <p class="mt-2 text-sm text-stone-600">{{ $feedback->teacher?->display_name ?? 'Guru BK' }} · {{ $feedback->created_at->translatedFormat('d F Y, H:i') }}</p>
                         </li>
                     @endforeach
                 </ul>

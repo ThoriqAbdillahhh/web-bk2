@@ -23,7 +23,7 @@
             <article class="border-b border-stone-200 pb-5">
                 <div class="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                        <h3 class="text-sm font-semibold text-stone-900">{{ $reflection->user->nickname ?: $reflection->user->name }}</h3>
+                        <h3 class="text-sm font-semibold text-stone-900">{{ $reflection->user->display_name }}</h3>
                         <p class="mt-1 text-xs text-stone-500">
                             {{ $reflection->user->classroom?->name ?? 'Kelas belum terdaftar' }}
                             <span aria-hidden="true">·</span>

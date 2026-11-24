@@ -3,7 +3,7 @@
         <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
                 <h1 class="text-2xl font-bold leading-tight text-stone-900">
-                    Halo, {{ $user->nickname ?: $user->name }}!
+                    Halo, {{ $user->display_name }}!
                 </h1>
                 <p class="mt-1 text-sm text-stone-600">Kita mulai dengan satu langkah kecil yang bisa kamu coba.</p>
             </div>

@@ -6,7 +6,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Siswa;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/login');
+Route::get('/', fn () => auth()->check()
+    ? redirect()->route('dashboard')
+    : view('landing'))->name('landing');
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
@@ -51,7 +53,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
 
     Route::get('angket', [Guru\SurveyRecapController::class, 'index'])->name('survey.index');
 
-    Route::get('konsultasi', [Guru\ConsultationController::class, 'index'])->name('consultations.index');
+    
     Route::patch('konsultasi/{consultation}', [Guru\ConsultationController::class, 'update'])->name('consultations.update');
 });
 
@@ -71,10 +73,10 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->name('siswa.')->grou
     Route::get('angket', [Siswa\SurveyController::class, 'show'])->name('survey.show');
     Route::post('angket', [Siswa\SurveyController::class, 'store'])->name('survey.store');
 
-    Route::get('konsultasi', [Siswa\ConsultationController::class, 'index'])->name('consultations.index');
+    
     Route::post('konsultasi', [Siswa\ConsultationController::class, 'store'])->name('consultations.store');
 
-    Route::get('profil', [Siswa\ProfileController::class, 'edit'])->name('profile.edit');
+    
     Route::match(['PUT', 'PATCH'], 'profil', [Siswa\ProfileController::class, 'update'])->name('profile.update');
     
 });

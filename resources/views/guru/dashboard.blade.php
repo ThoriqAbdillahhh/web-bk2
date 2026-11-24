@@ -11,7 +11,7 @@
 
     <div class="mx-auto max-w-6xl space-y-6 px-4 py-6 sm:px-6 lg:px-8">
         <section class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
-            <h2 class="text-xl font-bold text-stone-900">Selamat datang, {{ Auth::user()->nickname ?: 'Guru BK' }}.</h2>
+            <h2 class="text-xl font-bold text-stone-900">Selamat datang, {{ Auth::user()->display_name }}.</h2>
             <p class="mt-2 max-w-3xl text-sm leading-6 text-stone-600">Learning Adventure adalah prototipe pendamping belajar, bukan alat diagnosis atau penilaian akademik. Gunakan catatan untuk mendukung langkah siswa, bukan membandingkan mereka.</p>
         </section>
 

@@ -18,7 +18,7 @@
 
     <div class="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 lg:px-8 print:max-w-none print:px-0 print:py-0">
         <section class="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm print:shadow-none" aria-label="Informasi siswa">
-            <h2 class="text-lg font-bold text-stone-900">{{ $user->nickname ?: $user->name }}</h2>
+            <h2 class="text-lg font-bold text-stone-900">{{ $user->display_name }}</h2>
             <p class="mt-1 text-sm text-stone-600">Kelas: {{ $user->classroom?->name ?? 'Belum terdaftar' }}</p>
             <p class="mt-3 text-sm text-stone-700">{{ $completedCount }} dari {{ $totalMissions }} misi selesai.</p>
             <p class="mt-1 text-sm text-stone-600">Tidak ada skor, peringkat, atau perbandingan dengan siswa lain.</p>

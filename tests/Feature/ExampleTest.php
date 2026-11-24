@@ -6,10 +6,8 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    public function test_root_redirects_to_login(): void
+    public function test_root_page_is_available(): void
     {
-        $response = $this->get('/');
-
-        $response->assertRedirect('/login');
+        $this->get('/')->assertOk();
     }
 }

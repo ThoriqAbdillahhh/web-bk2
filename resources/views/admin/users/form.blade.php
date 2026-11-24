@@ -22,7 +22,7 @@
             </div>
 
             <div>
-                <label for="nickname" class="block text-sm font-semibold text-stone-700 mb-1">Nama Panggilan</label>
+                <label for="nickname" class="block text-sm font-semibold text-stone-700 mb-1">Nama Panggilan (wajib untuk siswa, yang ditampilkan ke guru)</label>
                 <input id="nickname" name="nickname" value="{{ old('nickname', $user->nickname) }}"
                        class="w-full rounded-xl border-stone-200 bg-stone-50 shadow-sm focus:border-brand-700 focus:ring-brand-700 text-sm">
                 @error('nickname') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror

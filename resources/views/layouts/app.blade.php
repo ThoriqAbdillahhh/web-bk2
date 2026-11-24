@@ -16,7 +16,7 @@
         @php
             $user = Auth::user();
             $role = $user->roles->first()?->name;
-            $displayName = $user->nickname ?: $user->name;
+            $displayName = $user->display_name;
             $roleLabel = $role === 'guru' ? 'Guru BK' : \Illuminate\Support\Str::ucfirst($role);
         @endphp
 
