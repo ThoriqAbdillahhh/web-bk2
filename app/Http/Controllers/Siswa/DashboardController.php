@@ -58,7 +58,20 @@ class DashboardController extends Controller
             'user' => $user,
             'currentMission' => $currentMission,
             'currentProgress' => $currentProgress,
-            'completedCount' => $user->missionProgress()->where('status', 'completed')->count(),
+            'journeyMissions' => $missions->map(function (Mission $mission) use ($progressByMission, $currentMission, $currentProgress) {
+                $progress = $progressByMission->get($mission->id);
+                $status = $progress?->status ?? 'locked';
+
+                if ($currentMission?->is($mission)) {
+                    $status = $currentProgress->status;
+                }
+
+                return [
+                    'mission' => $mission,
+                    'status' => $status,
+                ];
+            }),
+            'completedCount' => $progressByMission->where('status', 'completed')->count(),
             'totalMissions' => $missions->count(),
             'disclaimer' => config('adventure.disclaimer'),
             'latestAnswer' => $user->challengeAnswers()

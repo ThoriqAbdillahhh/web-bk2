@@ -38,16 +38,16 @@
     $isDesktop = $mode === 'desktop';
 @endphp
 
-<nav aria-label="Navigasi utama" class="{{ $isDesktop ? 'overflow-x-auto' : '' }}">
+<nav aria-label="Navigasi utama" class="px-3 {{ $isDesktop ? 'py-1' : 'py-0' }}">
     @foreach ($menu as $group)
-        <ul class="{{ $isDesktop ? 'flex min-w-max items-center gap-4 py-0' : 'space-y-0.5' }}">
+        <ul class="space-y-1">
             @foreach ($group['items'] as [$label, $route, $pattern, $icon])
                 @php $active = request()->routeIs($pattern); @endphp
                 <li>
                     <a href="{{ route($route) }}"
                        @if ($active) aria-current="page" @endif
-                       class="group flex min-h-11 items-center gap-2 border-b-2 px-2.5 text-xs font-medium transition-colors {{ $isDesktop ? 'whitespace-nowrap' : 'w-full border-l-2 border-b-0 py-2.5 text-sm' }} {{ $active ? ($isDesktop ? 'border-brand-700 text-brand-900' : 'border-brand-700 bg-stone-50 text-brand-900') : ($isDesktop ? 'border-transparent text-stone-600 hover:border-stone-300 hover:text-stone-900' : 'border-transparent text-stone-600 hover:bg-stone-50 hover:text-stone-900') }}">
-                        <x-adventure-icon :name="$icon" class="h-4 w-4 shrink-0 {{ $active ? 'text-brand-700' : 'text-stone-400 group-hover:text-stone-600' }}" />
+                       class="group flex min-h-10 items-center gap-3 rounded-lg px-2.5 text-xs font-medium transition-colors {{ $active ? 'bg-brand-50 text-brand-700' : 'text-slate-600 hover:bg-stone-50 hover:text-slate-900' }}">
+                        <x-adventure-icon :name="$icon" class="h-[18px] w-[18px] shrink-0 {{ $active ? 'text-brand-600' : 'text-slate-500 group-hover:text-slate-700' }}" />
                         {{ $label }}
                     </a>
                 </li>
